@@ -12,6 +12,8 @@
   "dependencies": {
     "@nestjs/common": "^9.2.0",
     "@nestjs/core": "^9.2.0",
+    "@solid-soda/config": "^2.2.0",
+    "@types/node": "^18.11.9",
     "prettier": "^2.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.7"
