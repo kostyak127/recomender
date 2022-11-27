@@ -1,8 +1,6 @@
-import { BaseException } from '../../../exceptions/base.exception';
-
 export type LogFunction = (message: any, ...optionalParams: any) => void;
 export type ErrorLogFunction = (
   message: any,
-  exception: BaseException,
+  exception: Error,
   ...optionalParams: any
 ) => void;

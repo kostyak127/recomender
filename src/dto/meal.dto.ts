@@ -7,3 +7,6 @@ export type MealDto = {
   rating: RatingDto[];
   project: ProjectDto;
 };
+
+export type MealWithoutRating = Omit<MealDto, 'rating'>;
+export type PricedMealWithoutRating = MealWithoutRating & { price: number };
