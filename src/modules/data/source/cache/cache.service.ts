@@ -19,8 +19,8 @@ export class CacheService {
     private readonly cacheManager: Cache,
   ) {}
   public async saveMeal(meal: MealDto): Promise<MealDto> {
-    return this.cacheManager.set(this.generateMealKey(meal), meal, this.mealCacheTime,
-    )
+    return this.cacheManager
+      .set(this.generateMealKey(meal), meal, this.mealCacheTime)
       .then(() => meal);
   }
   public async getMealByIdAndProjectId(
@@ -33,12 +33,12 @@ export class CacheService {
   }
   public async saveProject(project: ProjectDto): Promise<ProjectDto> {
     return this.cacheManager
-      .set(this.generateProjectByIdKey(project), project,
-        this.projectCacheTime,
-      )
+      .set(this.generateProjectByIdKey(project), project, this.projectCacheTime)
       .then(() =>
-        this.cacheManager.set(this.generateProjectByNameKey(project), project,
-           this.projectCacheTime,
+        this.cacheManager.set(
+          this.generateProjectByNameKey(project),
+          project,
+          this.projectCacheTime,
         ),
       )
       .then(() => project);
@@ -58,9 +58,9 @@ export class CacheService {
       .then((p) => p || null);
   }
   public async saveRating(rating: RatingDto): Promise<RatingDto> {
-    return this.cacheManager.set(this.generateRatingKey(rating), rating,
-       this.ratingCacheTime,
-    ).then(() => rating);
+    return this.cacheManager
+      .set(this.generateRatingKey(rating), rating, this.ratingCacheTime)
+      .then(() => rating);
   }
   public async getRating(
     mealId: MealDto['id'],
@@ -79,17 +79,19 @@ export class CacheService {
     user: UserDto,
     dbId: DbUserEntity['id'],
   ): Promise<UserDto & { dbId: DbUserEntity['id'] }> {
-    return this.cacheManager.set(
-      this.generateUserKey(user),
-      { ...user, dbId: dbId },
+    return this.cacheManager
+      .set(
+        this.generateUserKey(user),
+        { ...user, dbId: dbId },
 
         this.userCacheTime,
-
-    ).then(() => {
-      return {
-        ...user, dbId
-      }
-    });
+      )
+      .then(() => {
+        return {
+          ...user,
+          dbId,
+        };
+      });
   }
   public async getUser(
     userId: UserDto['id'],
