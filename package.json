@@ -5,7 +5,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start:dev": "nodemon src/main.ts"
+    "start:dev": "nodemon src/main.ts",
+    "evolutions:init": "evolutions --init",
+    "evolutions:run": "evolutions"
+
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.44.0",
