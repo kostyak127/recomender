@@ -1,0 +1,39 @@
+import { Module } from '@nestjs/common';
+import { LoggerModule } from '../logger/logger.module';
+import { DataModule } from '../data/data.module';
+import { DomainDatetimeHandler } from './service/datetime/domain.datetime-handler.service';
+import { DomainMealCreator } from './service/meal/domain.meal-creator.service';
+import { DomainOrderHandler } from './service/order/domain.order-handler.service';
+import { DomainProjectCreator } from './service/project/domain.project-creator.service';
+import { DomainProjectGetter } from './service/project/domain.project-getter.service';
+import { DomainRatingCompiler } from './service/rating/domain.rating-compiler.service';
+import { DomainRatingUpdater } from './service/rating/domain.rating-updater.service';
+import { DomainUserCreator } from './service/user/domain.user-creator.service';
+import { DomainUserGetter } from './service/user/domain.user-getter.service';
+
+@Module({
+  imports: [LoggerModule, DataModule],
+  providers: [
+    DomainDatetimeHandler,
+    DomainMealCreator,
+    DomainOrderHandler,
+    DomainProjectCreator,
+    DomainProjectGetter,
+    DomainRatingCompiler,
+    DomainRatingUpdater,
+    DomainUserCreator,
+    DomainUserGetter,
+  ],
+  exports: [
+    DomainDatetimeHandler,
+    DomainMealCreator,
+    DomainOrderHandler,
+    DomainProjectCreator,
+    DomainProjectGetter,
+    DomainRatingCompiler,
+    DomainRatingUpdater,
+    DomainUserCreator,
+    DomainUserGetter,
+  ],
+})
+export class DomainModule {}

@@ -9,6 +9,6 @@ export type RatingDto = {
   month: Month;
   user: UserDto | null;
   rank: number;
-  orderedTime: number;
+  orderedTimes: number;
   meal: MealWithoutRating;
 };

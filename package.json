@@ -12,14 +12,19 @@
   "dependencies": {
     "@nestjs/common": "^9.2.0",
     "@nestjs/core": "^9.2.0",
+    "@nestjs/typeorm": "^9.0.1",
     "@solid-soda/config": "^2.2.0",
+    "@types/cache-manager": "^4.0.2",
     "@types/lodash": "^4.14.190",
     "@types/node": "^18.11.9",
     "@types/uuid": "^8.3.4",
+    "hash.js": "^1.1.7",
     "lodash": "^4.17.21",
     "prettier": "^2.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.7",
+    "typeorm": "^0.3.10",
+    "typeorm-naming-strategies": "^4.1.0",
     "uuid": "^9.0.0"
   }
 }

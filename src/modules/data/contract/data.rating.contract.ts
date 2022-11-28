@@ -5,5 +5,5 @@ export abstract class DataRatingContract {
   public abstract update(
     id: RatingDto['id'],
     toUpdate: Partial<RatingDto>,
-  ): Promise<RatingDto>;
+  ): Promise<Partial<RatingDto>>;
 }

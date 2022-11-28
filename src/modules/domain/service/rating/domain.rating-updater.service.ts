@@ -40,7 +40,7 @@ export class DomainRatingUpdater {
       meal.rating[generalRatingIndex] = general;
       await this.dataRatingService.update(general.id, {
         rank: general.rank,
-        orderedTime: general.orderedTime,
+        orderedTimes: general.orderedTimes,
       });
     }
     if (ratingForUserIndex === -1) {
@@ -50,7 +50,7 @@ export class DomainRatingUpdater {
       meal.rating[ratingForUserIndex] = forUser;
       await this.dataRatingService.update(forUser.id, {
         rank: forUser.rank,
-        orderedTime: forUser.orderedTime,
+        orderedTimes: forUser.orderedTimes,
       });
     }
     return meal;

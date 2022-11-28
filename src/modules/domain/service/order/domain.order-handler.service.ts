@@ -22,26 +22,36 @@ export class DomainOrderHandler {
       this.datetimeHandler.getMonthAndDayPartFromDeliveryDate(
         order.deliveryDatetime,
       );
-    const user = await this.userGetter.getUserById(order.userId).then(
-      (u) =>
-        u ||
-        this.userCreator.createUser({
-          id: order.userId,
-          project: order.project,
-        }),
-    );
+    const user = await this.userGetter
+      .getUserById(order.userId, order.project)
+      .then(
+        (u) =>
+          u ||
+          this.userCreator.createUser({
+            id: order.userId,
+            project: order.project,
+          }),
+      );
     const meals = await Promise.all(
       order.items.map(async (item) => {
-        const innerMeal = await this.mealGetter.getById(item.mealId).then(
-          (m) =>
-            m ||
-            this.mealCreator.createMeal({
-              id: item.mealId,
-              name: item.name,
-              project: order.project,
-              rating: [],
-            }),
-        );
+        const innerMeal = await this.mealGetter
+          .getWithCurrentRatingById(
+            item.mealId,
+            order.project,
+            dayPart,
+            month,
+            user.id,
+          )
+          .then(
+            (m) =>
+              m ||
+              this.mealCreator.createMeal({
+                id: item.mealId,
+                name: item.name,
+                project: order.project,
+                rating: [],
+              }),
+          );
         const pricedMeal = {
           ...innerMeal,
           price: item.price,
