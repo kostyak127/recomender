@@ -8,7 +8,6 @@
     "start:dev": "nodemon src/main.ts",
     "evolutions:init": "evolutions --init",
     "evolutions:run": "evolutions"
-
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.44.0",
@@ -23,6 +22,7 @@
     "@nestjs/platform-express": "^9.2.0",
     "@nestjs/typeorm": "^9.0.1",
     "@solid-soda/config": "^2.2.0",
+    "@solid-soda/evolutions": "^0.1.0",
     "@types/cache-manager": "^4.0.2",
     "@types/lodash": "^4.14.190",
     "@types/node": "^18.11.9",

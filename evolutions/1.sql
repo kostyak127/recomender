@@ -19,7 +19,7 @@ create table "user" (
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP
 );
-CREATE INDEX user_external_id_idx ON table "user" USING HASH (external_id);
+CREATE INDEX user_external_id_idx ON "user" USING HASH (external_id);
 
 create table "meal" (
     id varchar(30) not null
@@ -33,7 +33,7 @@ create table "meal" (
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP
 );
-CREATE INDEX meal_external_id_idx ON table "meal" USING HASH (external_id);
+CREATE INDEX meal_external_id_idx ON "meal" USING HASH (external_id);
 
 create table "rating" (
     id varchar(30) not null
