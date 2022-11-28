@@ -19,9 +19,9 @@ export class CacheService {
     private readonly cacheManager: Cache,
   ) {}
   public async saveMeal(meal: MealDto): Promise<MealDto> {
-    return this.cacheManager.set(this.generateMealKey(meal), meal, {
-      ttl: this.mealCacheTime,
-    });
+    return this.cacheManager.set(this.generateMealKey(meal), meal, this.mealCacheTime,
+    )
+      .then(() => meal);
   }
   public async getMealByIdAndProjectId(
     mealId: MealDto['id'],
@@ -33,14 +33,15 @@ export class CacheService {
   }
   public async saveProject(project: ProjectDto): Promise<ProjectDto> {
     return this.cacheManager
-      .set(this.generateProjectByIdKey(project), project, {
-        ttl: this.projectCacheTime,
-      })
+      .set(this.generateProjectByIdKey(project), project,
+        this.projectCacheTime,
+      )
       .then(() =>
-        this.cacheManager.set(this.generateProjectByNameKey(project), project, {
-          ttl: this.projectCacheTime,
-        }),
-      );
+        this.cacheManager.set(this.generateProjectByNameKey(project), project,
+           this.projectCacheTime,
+        ),
+      )
+      .then(() => project);
   }
   public async getProjectByName(
     projectName: ProjectDto['name'],
@@ -57,9 +58,9 @@ export class CacheService {
       .then((p) => p || null);
   }
   public async saveRating(rating: RatingDto): Promise<RatingDto> {
-    return this.cacheManager.set(this.generateRatingKey(rating), rating, {
-      ttl: this.ratingCacheTime,
-    });
+    return this.cacheManager.set(this.generateRatingKey(rating), rating,
+       this.ratingCacheTime,
+    ).then(() => rating);
   }
   public async getRating(
     mealId: MealDto['id'],
@@ -81,10 +82,14 @@ export class CacheService {
     return this.cacheManager.set(
       this.generateUserKey(user),
       { ...user, dbId: dbId },
-      {
-        ttl: this.userCacheTime,
-      },
-    );
+
+        this.userCacheTime,
+
+    ).then(() => {
+      return {
+        ...user, dbId
+      }
+    });
   }
   public async getUser(
     userId: UserDto['id'],

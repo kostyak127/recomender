@@ -10,12 +10,14 @@ import { DomainRatingCompiler } from './service/rating/domain.rating-compiler.se
 import { DomainRatingUpdater } from './service/rating/domain.rating-updater.service';
 import { DomainUserCreator } from './service/user/domain.user-creator.service';
 import { DomainUserGetter } from './service/user/domain.user-getter.service';
+import {DomainMealGetter} from "./service/meal/domain.meal-getter.service";
 
 @Module({
   imports: [LoggerModule, DataModule],
   providers: [
     DomainDatetimeHandler,
     DomainMealCreator,
+    DomainMealGetter,
     DomainOrderHandler,
     DomainProjectCreator,
     DomainProjectGetter,
@@ -27,6 +29,7 @@ import { DomainUserGetter } from './service/user/domain.user-getter.service';
   exports: [
     DomainDatetimeHandler,
     DomainMealCreator,
+    DomainMealGetter,
     DomainOrderHandler,
     DomainProjectCreator,
     DomainProjectGetter,

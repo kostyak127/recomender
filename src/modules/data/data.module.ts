@@ -17,6 +17,10 @@ import { DataRatingContract } from './contract/data.rating.contract';
     DataRatingService,
     DataUserService,
     DataProjectService,
+    { provide: DataMealContract, useClass: DataMealService },
+    { provide: DataRatingContract, useClass: DataRatingService },
+    { provide: DataUserContract, useClass: DataUserService },
+    { provide: DataProjectContract, useClass: DataProjectService },
   ],
   exports: [
     { provide: DataMealContract, useClass: DataMealService },
