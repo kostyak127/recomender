@@ -54,7 +54,7 @@ export class DataRatingService implements DataRatingContract {
       withoutRating.project.id,
       user.dbId,
     );
-    if (cached !== null) {
+    if (cached.length) {
       return cached.map((i) => {
         return {
           ...i,

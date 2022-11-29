@@ -4,6 +4,7 @@ import { Helper } from '../utils/utils.helper';
 
 @Injectable()
 export class Config {
+  public static TOKEN: string;
   public static PORT: number;
   //DB PARAMS
   public static DB_HOST: string;
@@ -23,6 +24,7 @@ export class Config {
   ) {
     Config.PORT = this.config.getNumberOrElse('PORT', 3000);
     Config.DB_HOST = this.config.getStringOrThrow('DB_HOST');
+    Config.TOKEN = this.config.getStringOrThrow('TOKEN');
     Config.DB_USER = this.config.getStringOrThrow('DB_USER');
     Config.DB_PORT = this.config.getNumberOrThrow('DB_PORT');
     Config.DB_NAME = this.config.getStringOrThrow('DB_NAME');

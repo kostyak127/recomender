@@ -10,4 +10,9 @@ export class DomainProjectGetter {
   public async getByName(name: ProjectDto['name']): Promise<ProjectDto | null> {
     return this.dataProjectService.getByName(name);
   }
+  public async getByToken(
+    token: ProjectDto['token'],
+  ): Promise<ProjectDto | null> {
+    return this.dataProjectService.getByToken(token);
+  }
 }

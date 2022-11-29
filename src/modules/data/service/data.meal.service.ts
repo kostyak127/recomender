@@ -26,10 +26,10 @@ export class DataMealService implements DataMealContract {
   ) {}
   create(meal: MealDto): Promise<MealDto> {
     return this.dbMealRepo
-      .createMeal(new DbMealEntity(meal))
+      .createMeal(new DbMealEntity(this.mealMapper.mapToDb(meal)))
       .then((m) => {
         return {
-          id: m.id,
+          id: m.externalId,
           name: m.name,
           rating: meal.rating,
           project: meal.project,
@@ -92,5 +92,42 @@ export class DataMealService implements DataMealContract {
     };
     await this.cacheService.saveMeal(withRating);
     return withRating;
+  }
+
+  public async getGeneralToRecommend(
+    project: ProjectDto,
+    dayPart: DayPart,
+    month: Month,
+    limit: number,
+  ): Promise<MealWithoutRating[]> {
+    return this.dbMealRepo
+      .getToRecommendGeneral(project, dayPart, month, limit)
+      .then((res) =>
+        res.map((m) => {
+          return {
+            ...this.mealMapper.mapToDto(m),
+            project,
+          };
+        }),
+      );
+  }
+
+  public async getToRecommendByUserId(
+    project: ProjectDto,
+    dayPart: DayPart,
+    month: Month,
+    userId: UserDto['id'],
+    limit: number,
+  ): Promise<MealWithoutRating[]> {
+    return this.dbMealRepo
+      .getToRecommendByUser(project, dayPart, month, userId, limit)
+      .then((res) =>
+        res.map((m) => {
+          return {
+            ...this.mealMapper.mapToDto(m),
+            project,
+          };
+        }),
+      );
   }
 }

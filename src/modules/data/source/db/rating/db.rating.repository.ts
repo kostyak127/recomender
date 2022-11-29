@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IsNull, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { DbRatingEntity } from './db.rating.entity';
 import { DbMealEntity } from '../meal/db.meal.entity';
 import { DayPart } from '../../../../../type/day-part.type';
@@ -14,20 +14,26 @@ export class DbRatingRepository extends Repository<DbRatingEntity> {
     month: Month,
     userId: DbUserEntity['id'],
   ): Promise<DbRatingEntity[]> {
-    return this.findBy([
-      {
-        mealId,
-        month,
-        dayPart,
-        userId: userId,
-      },
-      {
-        mealId,
-        month,
-        dayPart,
-        userId: IsNull(),
-      },
-    ]);
+    return this.createQueryBuilder('meal')
+      .where(
+        'meal_id = :mealId and day_part = :dayPart and month = :month and (user_id = :userId or user_id is null)',
+        { mealId, dayPart, month, userId },
+      )
+      .getMany();
+    // return this.findBy([
+    //   {
+    //     mealId,
+    //     month,
+    //     dayPart,
+    //     userId: userId,
+    //   },
+    //   // {
+    //   //   mealId,
+    //   //   month,
+    //   //   dayPart,
+    //   //   userId: IsNull(),
+    //   // },
+    // ]);
   }
   public async updateRating(
     ratingId: DbRatingEntity['id'],

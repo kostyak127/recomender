@@ -41,6 +41,13 @@ export class CacheService {
           this.projectCacheTime,
         ),
       )
+      .then(() =>
+        this.cacheManager.set(
+          this.generateProjectByTokenKey(project),
+          project,
+          this.projectCacheTime,
+        ),
+      )
       .then(() => project);
   }
   public async getProjectByName(
@@ -52,6 +59,13 @@ export class CacheService {
   }
   public async getProjectById(
     projectId: ProjectDto['id'],
+  ): Promise<ProjectDto | null> {
+    return this.cacheManager
+      .get<ProjectDto>(this.getProjectIdKey(projectId))
+      .then((p) => p || null);
+  }
+  public async getProjectByToken(
+    projectId: ProjectDto['token'],
   ): Promise<ProjectDto | null> {
     return this.cacheManager
       .get<ProjectDto>(this.getProjectIdKey(projectId))
@@ -109,6 +123,9 @@ export class CacheService {
   protected getProjectIdKey(id: ProjectDto['id']): string {
     return `cache_project_id_${id}`;
   }
+  protected getProjectTokenKey(token: ProjectDto['token']): string {
+    return `cache_project_token_${token}`;
+  }
   protected getMealKey(
     mealId: MealDto['id'],
     projectId: ProjectDto['id'],
@@ -120,6 +137,9 @@ export class CacheService {
   }
   protected generateProjectByNameKey(project: ProjectDto): string {
     return `cache_project_name_${project.name}`;
+  }
+  protected generateProjectByTokenKey(project: ProjectDto): string {
+    return `cache_project_token_${project.token}`;
   }
   protected generateProjectByIdKey(project: ProjectDto): string {
     return `cache_project_id_${project.id}`;

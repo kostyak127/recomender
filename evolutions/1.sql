@@ -4,15 +4,16 @@ create table "project" (
         constraint project_pkey
             primary key,
     "name" varchar(30) not null,
+    "token" uuid not null,
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP
 );
 
 create table "user" (
-    id varchar(30) not null
+    id varchar(120) not null
         constraint user_pkey
             primary key,
-    external_id varchar(30) not null,
+    external_id varchar(120) not null,
     project_id uuid
         constraint user_project_id_fk
             references project,
@@ -22,10 +23,10 @@ create table "user" (
 CREATE INDEX user_external_id_idx ON "user" USING HASH (external_id);
 
 create table "meal" (
-    id varchar(30) not null
+    id varchar(120) not null
             constraint meal_pkey
                 primary key,
-    external_id varchar(30) not null,
+    external_id varchar(120) not null,
     project_id uuid
         constraint meal_project_id_fk
             references project,
@@ -36,12 +37,15 @@ create table "meal" (
 CREATE INDEX meal_external_id_idx ON "meal" USING HASH (external_id);
 
 create table "rating" (
-    id varchar(30) not null
+    id varchar(120) not null
         constraint rating_pkey
             primary key,
-    meal_id varchar(30)
+    meal_id varchar(120)
         constraint rating_meal_id_fk
                 references meal,
+    "user_id" varchar(120)
+            constraint rating_user_id_fk
+                    references "user",
     day_part varchar(15) not null,
     "month" varchar (15) not null,
     "rank" float not null,

@@ -19,4 +19,8 @@ export class DbProjectRepository extends Repository<DbProjectEntity> {
   ): Promise<DbProjectEntity> {
     return this.insert(project).then(() => project);
   }
+
+  async findByToken(token: string) {
+    return this.findOneBy({ token });
+  }
 }

@@ -8,12 +8,14 @@ export class DbProjectMapper {
     return new DbProjectEntity({
       id: dto.id,
       name: dto.name,
+      token: dto.token,
     });
   }
   public mapToDto(db: DbProjectEntity): ProjectDto {
     return {
       id: db.id,
       name: db.name,
+      token: db.token,
     };
   }
 }

@@ -9,4 +9,6 @@ export class DbProjectEntity extends DbBaseEntity {
   }
   @Column({ name: 'name', type: 'varchar' })
   name: string;
+  @Column({ name: 'token', type: 'varchar' })
+  token: string;
 }

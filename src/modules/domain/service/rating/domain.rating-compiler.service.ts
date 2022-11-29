@@ -42,7 +42,7 @@ export class DomainRatingCompiler {
   ): RatingDto {
     const userRating = inner.rating.find(
       (r) =>
-        r.user?.id !== user.id && r.month === month && r.dayPart === r.dayPart,
+        r.user?.id === user.id && r.month === month && r.dayPart === r.dayPart,
     );
     if (!userRating) {
       return {

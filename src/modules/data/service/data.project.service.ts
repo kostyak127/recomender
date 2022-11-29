@@ -33,6 +33,20 @@ export class DataProjectService implements DataProjectContract {
     return db;
   }
 
+  public async getByToken(
+    token: ProjectDto['token'],
+  ): Promise<ProjectDto | null> {
+    const cached = await this.cacheService.getProjectByToken(token);
+    if (cached !== null) {
+      return cached;
+    }
+    const db = await this.projectRepo.findByToken(token);
+    if (db !== null) {
+      await this.cacheService.saveProject(db);
+    }
+    return db;
+  }
+
   public async getByName(name: ProjectDto['name']): Promise<ProjectDto | null> {
     const cached = await this.cacheService.getProjectByName(name);
     if (cached !== null) {
