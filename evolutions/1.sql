@@ -44,7 +44,7 @@ create table "rating" (
                 references meal,
     day_part varchar(15) not null,
     "month" varchar (15) not null,
-    "rank" integer not null,
+    "rank" float not null,
     "ordered_times" integer not null,
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP
