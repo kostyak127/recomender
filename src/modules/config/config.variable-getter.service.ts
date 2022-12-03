@@ -18,6 +18,9 @@ export class Config {
   public static USER_TTL: number;
   public static RATING_TTL: number;
   public static PROJECT_TTL: number;
+
+  // RATING COMPILATION PARAMS
+  public static USE_QUANTITY_IN_RATING_COMPILATION: boolean;
   constructor(
     @Inject(Configuration)
     private readonly config: Configuration,
@@ -45,5 +48,9 @@ export class Config {
       'PROJECT_TTL',
       Helper.MinutesInSeconds(60),
     );
+    Config.USE_QUANTITY_IN_RATING_COMPILATION = this.config.getBooleanOrElse(
+      'USE_QUANTITY_IN_RATING_COMPILATION',
+      true,
+    )
   }
 }

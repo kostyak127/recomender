@@ -6,6 +6,7 @@ import { RatingDto } from '../../../../dto/rating.dto';
 import { UserDto } from '../../../../dto/user.dto';
 import * as _ from 'lodash';
 import { Helper } from '../../../utils/utils.helper';
+import { Config } from '../../../config/config.variable-getter.service';
 
 @Injectable()
 export class DomainRatingCompiler {
@@ -44,13 +45,16 @@ export class DomainRatingCompiler {
       (r) =>
         r.user?.id === user.id && r.month === month && r.dayPart === r.dayPart,
     );
+    const useQuantity = Config.USE_QUANTITY_IN_RATING_COMPILATION;
     if (!userRating) {
       return {
         id: Helper.UUID,
         dayPart,
         month,
         orderedTimes: 1,
-        rank: pricedMealWithoutRating.price,
+        rank: useQuantity 
+        ? (pricedMealWithoutRating.price * pricedMealWithoutRating.quantity)
+         : pricedMealWithoutRating.price,
         user,
         meal: _.omit(pricedMealWithoutRating, ['price']),
       };
@@ -60,7 +64,10 @@ export class DomainRatingCompiler {
         dayPart,
         month,
         orderedTimes: userRating.orderedTimes + 1,
-        rank: userRating.rank + pricedMealWithoutRating.price,
+        rank: userRating.rank + (useQuantity 
+          ? pricedMealWithoutRating.price * pricedMealWithoutRating.quantity
+          : pricedMealWithoutRating.price
+          ),
         user,
         meal: _.omit(pricedMealWithoutRating, ['price']),
       };
@@ -75,13 +82,16 @@ export class DomainRatingCompiler {
     const general = inner.rating.find(
       (r) => r.user === null && r.month === month && r.dayPart === r.dayPart,
     );
+    const useQuantity = Config.USE_QUANTITY_IN_RATING_COMPILATION;
     if (!general) {
       return {
         id: Helper.UUID,
         dayPart,
         month,
         orderedTimes: 1,
-        rank: pricedMealWithoutRating.price,
+        rank: useQuantity 
+          ? (pricedMealWithoutRating.price * pricedMealWithoutRating.quantity)
+          : pricedMealWithoutRating.price,
         user: null,
         meal: _.omit(pricedMealWithoutRating, ['price']),
       };
@@ -91,7 +101,10 @@ export class DomainRatingCompiler {
         dayPart,
         month,
         orderedTimes: general.orderedTimes + 1,
-        rank: general.rank + pricedMealWithoutRating.price,
+        rank: general.rank + (useQuantity 
+          ? pricedMealWithoutRating.price * pricedMealWithoutRating.quantity
+          : pricedMealWithoutRating.price
+          ),
         user: null,
         meal: _.omit(pricedMealWithoutRating, ['price']),
       };

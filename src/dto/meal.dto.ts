@@ -9,4 +9,4 @@ export type MealDto = {
 };
 
 export type MealWithoutRating = Omit<MealDto, 'rating'>;
-export type PricedMealWithoutRating = MealWithoutRating & { price: number };
+export type PricedMealWithoutRating = MealWithoutRating & { price: number, quantity: number };

@@ -55,6 +55,7 @@ export class DomainOrderHandler {
         const pricedMeal = {
           ...innerMeal,
           price: item.price,
+          quantity: item.quantity,
         };
         return { inner: innerMeal, priced: pricedMeal };
       }),
