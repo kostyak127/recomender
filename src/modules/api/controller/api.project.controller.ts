@@ -27,7 +27,7 @@ export class ApiProjectController {
     private readonly projectGetter: DomainProjectGetter,
   ) {}
   @HttpCode(200)
-  @ApiOperation({ summary: 'compile rating for ordered meals' })
+  @ApiOperation({ summary: 'creates project and returns it with api key' })
   @ApiUnauthorizedResponse({ description: 'not valid credentials' })
   @ApiOkResponse({
     status: 200,
