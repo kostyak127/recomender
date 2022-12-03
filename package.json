@@ -5,8 +5,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "prestart:prod": "rimraf dist && tsc",
     "start:dev": "nodemon src/main.ts",
     "evolutions:init": "evolutions --init",
+    "start:prod": "nodemon src/main.ts",
     "evolutions:run": "evolutions"
   },
   "devDependencies": {
