@@ -6,7 +6,7 @@ import { DomainMealGetter } from '../meal/domain.meal-getter.service';
 import { DomainMealCreator } from '../meal/domain.meal-creator.service';
 import { DomainUserGetter } from '../user/domain.user-getter.service';
 import { DomainUserCreator } from '../user/domain.user-creator.service';
-import { Config } from 'src/modules/config/config.variable-getter.service';
+import { Config } from '../../../config/config.variable-getter.service';
 
 @Injectable()
 export class DomainOrderHandler {
