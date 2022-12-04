@@ -21,6 +21,7 @@ export class Config {
 
   // RATING COMPILATION PARAMS
   public static USE_QUANTITY_IN_RATING_COMPILATION: boolean;
+  public static MIN_MEAL_PRICE_FOR_RECOMMEND: number | null;
   constructor(
     @Inject(Configuration)
     private readonly config: Configuration,
@@ -51,6 +52,7 @@ export class Config {
     Config.USE_QUANTITY_IN_RATING_COMPILATION = this.config.getBooleanOrElse(
       'USE_QUANTITY_IN_RATING_COMPILATION',
       true,
-    )
+    );
+    Config.MIN_MEAL_PRICE_FOR_RECOMMEND = this.config.getNumberOrElse('MIN_MEAL_PRICE_FOR_RECOMMEND', 0) || null;
   }
 }

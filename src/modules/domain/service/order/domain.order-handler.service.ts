@@ -6,6 +6,7 @@ import { DomainMealGetter } from '../meal/domain.meal-getter.service';
 import { DomainMealCreator } from '../meal/domain.meal-creator.service';
 import { DomainUserGetter } from '../user/domain.user-getter.service';
 import { DomainUserCreator } from '../user/domain.user-creator.service';
+import { Config } from 'src/modules/config/config.variable-getter.service';
 
 @Injectable()
 export class DomainOrderHandler {
@@ -32,8 +33,9 @@ export class DomainOrderHandler {
             project: order.project,
           }),
       );
-    const meals = await Promise.all(
-      order.items.map(async (item) => {
+    const mealsToCompileRating = await Promise.all(
+      order.items.filter((item) => Config.MIN_MEAL_PRICE_FOR_RECOMMEND === null || item.price > Config.MIN_MEAL_PRICE_FOR_RECOMMEND)
+      .map(async (item) => {
         const innerMeal = await this.mealGetter
           .getWithCurrentRatingById(
             item.mealId,
@@ -61,7 +63,7 @@ export class DomainOrderHandler {
       }),
     );
     await Promise.all(
-      meals.map((m) =>
+      mealsToCompileRating.map((m) =>
         this.ratingUpdater.updateMealRating(
           m.inner,
           m.priced,
