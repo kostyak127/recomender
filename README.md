@@ -87,6 +87,10 @@ userId query param is not required, so if userId not passed, server returns gene
 
 **You can also configure rating compiling formule**
 Service use quantity of products in order by default but you can turn off checking quantity and use only price in rating compilation just set 
+```
 USE_QUANTITY_IN_RATING_COMPILATION=false
+```
 Service hasn`t minimal meal price to compile rating. You can set minimal meal price like this
+```
 MIN_MEAL_PRICE_FOR_RECOMMEND=400
+```
